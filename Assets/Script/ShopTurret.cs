@@ -13,6 +13,7 @@ public class ShopTurret : MonoBehaviour
 
     void Start()
     {
+        gameObject.SetActive(false);
         slot1.onClick.AddListener(OnClickBuy_1);
         slot2.onClick.AddListener(OnClickBuy_2);
         slot3.onClick.AddListener(OnClickBuy_3);
@@ -46,7 +47,6 @@ public class ShopTurret : MonoBehaviour
         item = 4;
         Event_OnClickBuy?.Invoke(item);
     }
-
-   
+  
 }
 

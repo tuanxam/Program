@@ -28,7 +28,10 @@ public class Enemy : MonoBehaviour
                 _waypointIndex++;
             }
             else
-                Destroy(gameObject);
+            {
+                gameObject.SetActive(false);
+                _waypointIndex = 0;
+            }
         }
     }
 
@@ -36,7 +39,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            Debug.Log("get hit");
+            gameObject.SetActive(false);
+            _waypointIndex = 0;
         }
     }
     

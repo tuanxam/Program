@@ -6,7 +6,7 @@ public class Turret : MonoBehaviour
 {
     public GameObject gun;
     public float range;
-    public GameObject bullet;
+    public GameObject bulletPrefab;
     public float firRate;
     public float fore;
     
@@ -17,6 +17,7 @@ public class Turret : MonoBehaviour
     private Vector2 _dir;
     private Rigidbody2D _rb;
     public int id;
+    private List<GameObject> bulletPool = new List<GameObject>();
 
     void Start()
     {
@@ -53,8 +54,22 @@ public class Turret : MonoBehaviour
 
     private void Shoot()     
     {
-        var bul = Instantiate(bullet, gun.transform.position, Quaternion.identity);
+        var bul = GetBulletFromPool();
+        bul.SetActive(true);
+        bul.transform.position = transform.position;
         bul.GetComponent<Rigidbody2D>().AddForce(_dir * fore);
+    }
+
+    GameObject GetBulletFromPool()
+    {
+        foreach(GameObject g in bulletPool)
+        {
+            if (g.activeSelf == false)
+                return g;
+        }
+        var new_bullet = Instantiate(bulletPrefab);
+        bulletPool.Add(new_bullet);
+        return new_bullet;
     }
 
     private void OnDrawGizmosSelected()

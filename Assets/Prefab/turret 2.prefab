@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 1387134268270626748}
-  range: 5
-  bullet: {fileID: 5453662592867667909, guid: a7bd8ce1dc09d324eb393b8627a13c12, type: 3}
+  range: 2
+  bulletPrefab: {fileID: 5453662592867667909, guid: a7bd8ce1dc09d324eb393b8627a13c12, type: 3}
   firRate: 1
   fore: 250
   layerMask:
