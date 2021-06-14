@@ -4,68 +4,51 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public Enemy enemy;
     public GameObject gun;
     public float range;
     public GameObject bullet;
     public float firRate;
     public float fore;
     
-    private float nextimtofire = 0;
+    [SerializeField]
+    public LayerMask layerMask;
+    private Collider2D _target;
+    private float _nextimtofire = 0;
     private Vector2 _dir;
-    private bool isDetected;
-    private bool isSelected;
-    private bool isBuild;
+    private Rigidbody2D _rb;
+    public int id;
+
     void Start()
     {
-        
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isSelected)
+        CheckTarget();
+    }
+
+    private void CheckTarget()
+    {
+        _target = Physics2D.OverlapCircle(transform.position, range, layerMask);
+  
+        if(_target!=null)
         {
-            SetPositon();
-        }
-
-        Vector2 targetpos = enemy.transform.position;
-        _dir = targetpos - (Vector2)transform.position;
-
-        RaycastHit2D raycast = Physics2D.Raycast(transform.position, _dir, range);
-
-        if (raycast)
-        {
-            if (raycast.collider.CompareTag("Enemy"))
+            _dir = _target.transform.position - transform.position;
+            LockAtTarget();
+            if(_nextimtofire < Time.time)
             {
-                isDetected = true;
-                Debug.Log("eneemy");
-            }
-            else
-            {
-                if (isDetected)
-                {
-                    isDetected = false;
-                }
-            }
-        }
-
-        if (isDetected)
-        {
-            gun.transform.up = _dir;
-            if (Time.time > nextimtofire)
-            {
-                nextimtofire = Time.time + 1 / firRate;
                 Shoot();
-            }
+                _nextimtofire = Time.time + 1/firRate;             
+            }           
         }
     }
 
-    public void SetPositon()
+    private void LockAtTarget()
     {
-        isSelected = true;
-        Vector2 currenpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector2(currenpos.x, currenpos.y);
+        float angle = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg - 90;
+        _rb.rotation = angle;
     }
 
     private void Shoot()     
@@ -78,32 +61,5 @@ public class Turret : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, range);
     }
-
-    private void OnMouseDown()
-    {
-        if (isBuild)
-        {
-            isSelected = false;
-        }          
-        else
-        {
-            isSelected = true;
-        }
-            
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-
-        if (collision.CompareTag("Plane"))
-        {
-            Debug.Log("hitt");
-            if(Input.GetMouseButtonUp(0))
-            {
-                isSelected = false;
-                isBuild = true;
-            }            
-        }
-    }
-  
+    
 }
