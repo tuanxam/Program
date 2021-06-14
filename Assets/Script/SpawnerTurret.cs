@@ -19,11 +19,6 @@ public class SpawnerTurret : MonoBehaviour
     {
         ShopTurret.Event_OnClickBuy -= Spaw;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Spaw(int _id)
     {

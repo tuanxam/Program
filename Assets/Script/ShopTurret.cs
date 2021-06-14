@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,11 +20,8 @@ public class ShopTurret : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //cái này là tui set tay, những nếu có nhiều hơn item và t muốn tạo 1 cái scrollview thì làm sao để biết
+    //khi click vào item thì sẻ cho ra giá trị của item đó, rồi truyền giá trị đó qua Spawner để nó biết mà tạo turret tương ứng
 
     public void OnClickBuy_1()
     {
@@ -49,5 +46,7 @@ public class ShopTurret : MonoBehaviour
         item = 4;
         Event_OnClickBuy?.Invoke(item);
     }
+
+   
 }
 
