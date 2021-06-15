@@ -478,7 +478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &117342566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12454,6 +12454,7 @@ MonoBehaviour:
   slot2: {fileID: 1374227671}
   slot3: {fileID: 1746332685}
   slot4: {fileID: 63179925}
+  place1: {fileID: 0}
   item: 0
 --- !u!1 &1438642743
 GameObject:
