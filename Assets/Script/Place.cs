@@ -26,4 +26,11 @@ public class Place : MonoBehaviour
         shopTurret.SetActive(true);
         Event_OnClickPlace?.Invoke(id);
     }
+
+    private void OnMouseDown()
+    {
+        Debug.Log($"Click on place: {id}");
+        OnclickBuild();
+        ShopTurret.OnClickBuy(id);
+    }
 }

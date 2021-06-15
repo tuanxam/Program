@@ -8,6 +8,10 @@ public class ShopTurret : MonoBehaviour
 {
     public static event Action <int> Event_OnClickBuy;
     public Button slot1, slot2, slot3, slot4;
+
+    [SerializeField]
+    private Place place1;
+
     [HideInInspector]
     public int item;
 
@@ -18,7 +22,6 @@ public class ShopTurret : MonoBehaviour
         slot2.onClick.AddListener(OnClickBuy_2);
         slot3.onClick.AddListener(OnClickBuy_3);
         slot4.onClick.AddListener(OnClickBuy_4);
-        
     }
 
     //cái này là tui set tay, những nếu có nhiều hơn item và t muốn tạo 1 cái scrollview thì làm sao để biết
@@ -48,5 +51,9 @@ public class ShopTurret : MonoBehaviour
         Event_OnClickBuy?.Invoke(item);
     }
   
+    public static void OnClickBuy(int turretIndex)
+    {
+        Event_OnClickBuy?.Invoke(turretIndex);
+    }
 }
 
