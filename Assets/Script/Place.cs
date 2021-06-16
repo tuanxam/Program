@@ -27,6 +27,6 @@ public class Place : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log($"Click on place");
-        _buildCanvas.gameObject.SetActive(true);
+        _buildCanvas.gameObject.SetActive(!_buildCanvas.gameObject.activeSelf);
     }
 }
