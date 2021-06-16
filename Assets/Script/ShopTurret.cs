@@ -6,18 +6,17 @@ using System;
 using UnityEngine.Events;
 public class ShopTurret : MonoBehaviour
 {
-    public static event Action <int> Event_OnClickBuy;
+    public event Action<int> Event_SelectTower;
     public Button slot1, slot2, slot3, slot4;
-
-    [SerializeField]
-    private Place place1;
 
     [HideInInspector]
     public int item;
 
+    [SerializeField]
+    private Canvas _buildCanvas;
+
     void Start()
     {
-        gameObject.SetActive(false);
         slot1.onClick.AddListener(OnClickBuy_1);
         slot2.onClick.AddListener(OnClickBuy_2);
         slot3.onClick.AddListener(OnClickBuy_3);
@@ -29,31 +28,30 @@ public class ShopTurret : MonoBehaviour
 
     public void OnClickBuy_1()
     {
+        _buildCanvas.gameObject.SetActive(false);
         item = 1;
-        Event_OnClickBuy?.Invoke(item);
+        Event_SelectTower?.Invoke(item);
     }
 
     public void OnClickBuy_2()
     {
+        _buildCanvas.gameObject.SetActive(false);
         item = 2;
-        Event_OnClickBuy?.Invoke(item);
+        Event_SelectTower?.Invoke(item);
     }
 
     public void OnClickBuy_3()
     {
+        _buildCanvas.gameObject.SetActive(false);
         item = 3;
-        Event_OnClickBuy?.Invoke(item);
-
+        Event_SelectTower?.Invoke(item);
     }
+
     public void OnClickBuy_4()
     {
+        _buildCanvas.gameObject.SetActive(false);
         item = 4;
-        Event_OnClickBuy?.Invoke(item);
-    }
-  
-    public static void OnClickBuy(int turretIndex)
-    {
-        Event_OnClickBuy?.Invoke(turretIndex);
+        Event_SelectTower?.Invoke(item);
     }
 }
 

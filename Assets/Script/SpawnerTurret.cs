@@ -5,26 +5,8 @@ using System;
 public class SpawnerTurret : MonoBehaviour
 {
     public List<Turret> turrets = new List<Turret>();
-    private Place place;
     void Start()
     {
-        place = GetComponent<Place>();
-    }
-    private void OnEnable()
-    {
-        Place.Event_OnClickPlace += CheckId;       
-    }
-    private void OnDisable()
-    {
-        ShopTurret.Event_OnClickBuy -= Spaw;
-    }
-
-    private void CheckId(int id)
-    {
-        if(id == place.id)
-        {
-            ShopTurret.Event_OnClickBuy += Spaw;
-        }
     }
 
     public void Spaw(int _item)

@@ -3,34 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+
 public class Place : MonoBehaviour
 {
-    public static event Action<int> Event_OnClickPlace;
-    public Button bt_build;
-    public GameObject shopTurret;
+    public ShopTurret shopTurret;
+    public SpawnerTurret spawnerTurret;
     public int id;
+
+    [SerializeField]
+    private Canvas _buildCanvas;
+
     void Start()
     {
-        bt_build.onClick.AddListener(OnclickBuild);
+        shopTurret.Event_SelectTower += Handlet_Event_SelectTower;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Handlet_Event_SelectTower(int id)
     {
-
-    }
-
-    public void OnclickBuild()
-    {
-        shopTurret.transform.position = transform.position;
-        shopTurret.SetActive(true);
-        Event_OnClickPlace?.Invoke(id);
+        this.id = id;
+        spawnerTurret.Spaw(id);
     }
 
     private void OnMouseDown()
     {
-        Debug.Log($"Click on place: {id}");
-        OnclickBuild();
-        ShopTurret.OnClickBuy(id);
+        Debug.Log($"Click on place");
+        _buildCanvas.gameObject.SetActive(true);
     }
 }
