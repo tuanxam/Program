@@ -6,7 +6,7 @@ using System;
 using UnityEngine.Events;
 public class ShopTurret : MonoBehaviour
 {
-    public static event Action <int> Event_OnSelectItem;
+    public event Action <int> Event_OnSelectItem;
     [HideInInspector] public int item_index;
     public Transform Panel;
 

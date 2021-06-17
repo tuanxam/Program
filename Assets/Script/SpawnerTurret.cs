@@ -9,13 +9,13 @@ public class SpawnerTurret : MonoBehaviour
 
     public void Spaw(int _itemIndex)
     {
-        Instantiate(list_turretPrefab[_itemIndex], transform.position, Quaternion.identity);
-        //g = GetComponent<Turret>();
-        //g.name = list_turretDatas[_itemIndex].name;
-        //g.attack = list_turretDatas[_itemIndex].attack;
-        //g.range = list_turretDatas[_itemIndex].range;
-        //g.firRate = list_turretDatas[_itemIndex].fireRate;
-        //g.cost = list_turretDatas[_itemIndex].cost;
-        //g.cost_upgrade = list_turretDatas[_itemIndex].cost_upgrade;
+        Turret g = Instantiate(list_turretPrefab[_itemIndex], transform.position, Quaternion.identity);
+        TurretData data = list_turretDatas[_itemIndex];
+        g.name = data.name;
+        g.attack = data.attack;
+        g.range = data.range;
+        g.firRate = data.fireRate;
+        g.cost = data.cost;
+        g.cost_upgrade = data.cost_upgrade;
     }
 }
