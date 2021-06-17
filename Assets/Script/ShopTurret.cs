@@ -7,11 +7,9 @@ using UnityEngine.Events;
 public class ShopTurret : MonoBehaviour
 {
     public static event Action <int> Event_OnClickBuy;
-    [SerializeField] List<ShopTurret> shopTurretsList;
     [HideInInspector] public int item_index;
     public Transform Panel;
 
-    private GameObject g;
     private Button button;
    
     void Start()

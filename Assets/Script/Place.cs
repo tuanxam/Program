@@ -13,8 +13,10 @@ public class Place : MonoBehaviour
        
     }
 
-    // Update is called once per frame
+    private void Handle_EvenOnClickBuy(int index)
+    {
 
+    }
 
     private void OnMouseDown()
     {
