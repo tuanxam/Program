@@ -25,10 +25,10 @@ public class SpawnerTurret : MonoBehaviour
 
     private void CheckId(int id)
     {
-        if(id == place.id)
-        {
-            ShopTurret.Event_OnClickBuy += Spaw;          
-        }
+        //if(id == place.id)
+        //{
+        //    ShopTurret.Event_OnClickBuy += Spaw;          
+        //}
     }
 
     public void Spaw(int _itemIndex)

@@ -6,24 +6,19 @@ using System;
 public class Place : MonoBehaviour
 {
     public static event Action<int> Event_OnClickPlace;
-    public Button bt_build;
     public GameObject shopTurret;
-    public int id;
+    public Canvas _buildcanvas;
     void Start()
     {
-        bt_build.onClick.AddListener(OnclickBuild);
+       
     }
 
     // Update is called once per frame
-    void Update()
-    {
 
-    }
 
-    public void OnclickBuild()
+    private void OnMouseDown()
     {
-        shopTurret.transform.position = transform.position;
-        shopTurret.SetActive(true);
-        Event_OnClickPlace?.Invoke(id);
+        _buildcanvas.gameObject.SetActive(!_buildcanvas.gameObject.activeSelf);
+        Debug.Log("onlick");
     }
 }
