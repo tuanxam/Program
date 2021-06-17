@@ -7,46 +7,32 @@ using UnityEngine.Events;
 public class ShopTurret : MonoBehaviour
 {
     public static event Action <int> Event_OnClickBuy;
-    public Button slot1, slot2, slot3, slot4;
-    [HideInInspector]
-    public int item;
+    [SerializeField] List<ShopTurret> shopTurretsList;
+    [HideInInspector] public int item_index;
+    public Transform Panel;
 
+    private GameObject g;
+    private Button button;
+   
     void Start()
     {
         gameObject.SetActive(false);
-        slot1.onClick.AddListener(OnClickBuy_1);
-        slot2.onClick.AddListener(OnClickBuy_2);
-        slot3.onClick.AddListener(OnClickBuy_3);
-        slot4.onClick.AddListener(OnClickBuy_4);
-        
+        SetButton();
     }
 
-    //cái này là tui set tay, những nếu có nhiều hơn item và t muốn tạo 1 cái scrollview thì làm sao để biết
-    //khi click vào item thì sẻ cho ra giá trị của item đó, rồi truyền giá trị đó qua Spawner để nó biết mà tạo turret tương ứng
-
-    public void OnClickBuy_1()
+    private void onShopTurretBntClicked(int index)
     {
-        item = 1;
-        Event_OnClickBuy?.Invoke(item);
+        Event_OnClickBuy?.Invoke(index);
+        Debug.Log(index);
     }
 
-    public void OnClickBuy_2()
+    private void SetButton()
     {
-        item = 2;
-        Event_OnClickBuy?.Invoke(item);
+        for (int i = 0; i < Panel.GetChildCount(); i++)
+        {
+            button = Panel.GetChild(i).GetComponent<Button>();
+            button.AddEventListener(i, onShopTurretBntClicked);
+        }
     }
-
-    public void OnClickBuy_3()
-    {
-        item = 3;
-        Event_OnClickBuy?.Invoke(item);
-
-    }
-    public void OnClickBuy_4()
-    {
-        item = 4;
-        Event_OnClickBuy?.Invoke(item);
-    }
-  
 }
 

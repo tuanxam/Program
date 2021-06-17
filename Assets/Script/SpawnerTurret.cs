@@ -4,11 +4,15 @@ using UnityEngine;
 using System;
 public class SpawnerTurret : MonoBehaviour
 {
-    public List<Turret> turrets = new List<Turret>();
+    public List<Turret> list_turretPrefab = new List<Turret>();
+    public List<TurretData> list_turretDatas = new List<TurretData>();
+
     private Place place;
+
     void Start()
     {
         place = GetComponent<Place>();
+        
     }
     private void OnEnable()
     {
@@ -23,27 +27,21 @@ public class SpawnerTurret : MonoBehaviour
     {
         if(id == place.id)
         {
-            ShopTurret.Event_OnClickBuy += Spaw;
+            ShopTurret.Event_OnClickBuy += Spaw;          
         }
     }
 
-    public void Spaw(int _item)
+    public void Spaw(int _itemIndex)
     {
-        switch(_item)
-        {
-            case 1:
-                Instantiate(turrets[0], transform.position, Quaternion.identity);
-                break;
-            case 2:
-                Instantiate(turrets[1], transform.position, Quaternion.identity);
-                break;
-            case 3:
-                Instantiate(turrets[2], transform.position, Quaternion.identity);
-                break;
-            case 4:
-                Instantiate(turrets[3], transform.position, Quaternion.identity);
-                break;
-        }
+        var g = Instantiate(list_turretPrefab[_itemIndex], transform.position, Quaternion.identity);
+        g = GetComponent<Turret>();
+        g.name = list_turretDatas[_itemIndex].name;
+        g.attack = list_turretDatas[_itemIndex].attack;
+        g.range = list_turretDatas[_itemIndex].range;
+        g.firRate = list_turretDatas[_itemIndex].fireRate;
+        g.cost = list_turretDatas[_itemIndex].cost;
+        g.cost_upgrade = list_turretDatas[_itemIndex].cost_upgrade;
+
         gameObject.SetActive(false);
     }
 }

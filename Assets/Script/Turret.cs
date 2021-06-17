@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public GameObject gun;
-    public float range;
+    public GameObject gun;   
     public GameObject bulletPrefab;
+    public string name;
+    public Sprite sprite;
+    public float attack;
+    public float cost;
+    public float cost_upgrade;
+    public float range;
     public float firRate;
     public float fore;
     
@@ -37,7 +42,7 @@ public class Turret : MonoBehaviour
         if(_target!=null)
         {
             _dir = _target.transform.position - transform.position;
-            LockAtTarget();
+            //LockAtTarget();
             if(_nextimtofire < Time.time)
             {
                 Shoot();
