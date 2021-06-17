@@ -6,21 +6,20 @@ using System;
 using UnityEngine.Events;
 public class ShopTurret : MonoBehaviour
 {
-    public static event Action <int> Event_OnClickBuy;
+    public static event Action <int> Event_OnSelectItem;
     [HideInInspector] public int item_index;
     public Transform Panel;
 
     private Button button;
    
     void Start()
-    {
-        gameObject.SetActive(false);
+    {     
         SetButton();
     }
 
     private void onShopTurretBntClicked(int index)
     {
-        Event_OnClickBuy?.Invoke(index);
+        Event_OnSelectItem?.Invoke(index);
         Debug.Log(index);
     }
 

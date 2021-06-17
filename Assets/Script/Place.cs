@@ -8,14 +8,19 @@ public class Place : MonoBehaviour
     public static event Action<int> Event_OnClickPlace;
     public GameObject shopTurret;
     public Canvas _buildcanvas;
+    public SpawnerTurret spawnerTurret;
+    private int id;
     void Start()
     {
-       
+        ShopTurret.Event_OnSelectItem += Handle_EvenOnSelectItem;
+        _buildcanvas.gameObject.SetActive(false);
     }
 
-    private void Handle_EvenOnClickBuy(int index)
+    private void Handle_EvenOnSelectItem(int index)
     {
-
+        this.id = index;
+        spawnerTurret.Spaw(index);
+        _buildcanvas.gameObject.SetActive(false);
     }
 
     private void OnMouseDown()
