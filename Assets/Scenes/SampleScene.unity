@@ -1092,6 +1092,7 @@ MonoBehaviour:
   shopTurret: {fileID: 1392091530}
   _buildcanvas: {fileID: 0}
   spawnerTurret: {fileID: 0}
+  placeId: 0
 --- !u!114 &161801989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3159,6 +3160,7 @@ MonoBehaviour:
   shopTurret: {fileID: 1013549532}
   _buildcanvas: {fileID: 1052423188}
   spawnerTurret: {fileID: 654802150}
+  placeId: 0
 --- !u!4 &654802153
 Transform:
   m_ObjectHideFlags: 0
@@ -11087,6 +11089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item_index: 0
   Panel: {fileID: 791901789}
+  button: {fileID: 1119184193}
 --- !u!1 &1041786930
 GameObject:
   m_ObjectHideFlags: 0
@@ -12102,6 +12105,7 @@ MonoBehaviour:
   shopTurret: {fileID: 1392091530}
   _buildcanvas: {fileID: 0}
   spawnerTurret: {fileID: 0}
+  placeId: 0
 --- !u!1 &1238480150
 GameObject:
   m_ObjectHideFlags: 0
@@ -14637,6 +14641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item_index: 0
   Panel: {fileID: 687217069}
+  button: {fileID: 0}
 --- !u!1 &1411936248
 GameObject:
   m_ObjectHideFlags: 0
@@ -14671,6 +14676,7 @@ MonoBehaviour:
   shopTurret: {fileID: 1833869958}
   _buildcanvas: {fileID: 293155738}
   spawnerTurret: {fileID: 1411936252}
+  placeId: 0
 --- !u!4 &1411936250
 Transform:
   m_ObjectHideFlags: 0
@@ -17183,6 +17189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item_index: 0
   Panel: {fileID: 1520439724}
+  button: {fileID: 1974487396}
 --- !u!224 &1833869960
 RectTransform:
   m_ObjectHideFlags: 0

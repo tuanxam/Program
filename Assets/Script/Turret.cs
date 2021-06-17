@@ -6,7 +6,7 @@ public class Turret : MonoBehaviour
 {
     public GameObject gun;   
     public GameObject bulletPrefab;
-    public string name;
+    public new string name;
     public Sprite sprite;
     public float attack;
     public float cost;

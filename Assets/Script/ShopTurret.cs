@@ -10,13 +10,19 @@ public class ShopTurret : MonoBehaviour
     [HideInInspector] public int item_index;
     public Transform Panel;
 
-    private Button button;
+    public Button button;
    
     void Start()
-    {     
-        SetButton();
+    {
+        // SetButton();
+        button.onClick.AddListener(onickBuy);
     }
 
+    void onickBuy()
+    {
+        item_index = 1;
+        Event_OnSelectItem?.Invoke(item_index);
+    }
     private void onShopTurretBntClicked(int index)
     {
         Event_OnSelectItem?.Invoke(index);
