@@ -6,7 +6,7 @@ using System;
 public class Place : MonoBehaviour
 {
     public static event Action<int> Event_OnClickPlace;
-    public GameObject shopTurret;
+    public ShopTurret shopTurret;
     public Canvas _buildcanvas;
     public SpawnerTurret spawnerTurret;
     public int placeId;
