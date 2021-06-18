@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6fe31b50c5293458062800a04d7f82, type: 3}
   m_Name: Turret02
   m_EditorClassIdentifier: 
-  name: 
-  attack: 0
-  fireRate: 0
-  sprite: {fileID: 0}
-  range: 0
-  cost: 0
-  cost_upgrade: 0
+  name: Turret02
+  attack: 20
+  fireRate: 2
+  sprite: {fileID: 8218588603213386676, guid: 76b371fcba1e0284b8d70917671a2341, type: 3}
+  range: 3
+  cost: 200
+  cost_upgrade: 100

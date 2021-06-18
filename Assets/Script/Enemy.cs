@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class Enemy : MonoBehaviour
 {
     public float speed;
+    public int enemyCoin;
     private WayPoint _wayPoint;
     private int _waypointIndex;
     void Start()
@@ -39,9 +40,9 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
+            HelperCalculate._instance.AddCoin(enemyCoin);
             gameObject.SetActive(false);
             _waypointIndex = 0;
         }
-    }
-    
+    }    
 }

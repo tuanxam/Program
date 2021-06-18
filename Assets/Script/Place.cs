@@ -18,6 +18,7 @@ public class Place : MonoBehaviour
     {
         spawnerTurret.Spaw(index);
         _buildcanvas.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private void OnMouseDown()

@@ -42,7 +42,7 @@ public class Turret : MonoBehaviour
         if(_target!=null)
         {
             _dir = _target.transform.position - transform.position;
-            //LockAtTarget();
+
             if(_nextimtofire < Time.time)
             {
                 Shoot();
