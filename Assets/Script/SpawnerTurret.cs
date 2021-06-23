@@ -17,5 +17,8 @@ public class SpawnerTurret : MonoBehaviour
         g.firRate = data.fireRate;
         g.cost = data.cost;
         g.cost_upgrade = data.cost_upgrade;
+        g.sprite1 = data.sprite1;
+        g.sprite2 = data.sprite2;
+        g.sprite3 = data.sprite3;
     }
 }

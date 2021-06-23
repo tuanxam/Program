@@ -4,42 +4,59 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    private List<GameObject> enemyPool = new List<GameObject>();
-    private bool isSpawned = true;
+    public List<Enemy> list_enemyPrefab = new List<Enemy>();
+    public List<EnemyData> list_enemyData = new List<EnemyData>();
+    private List<Enemy> enemyPool = new List<Enemy>();
+    private Coroutine _coroutine;
+    private WayPoint _wayPoint;
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     void Start()
     {
-
+       
     }
 
     // Update is called once per frame
-    void Update()
+
+    public void StartSpawEnemy()
     {
-        if(isSpawned)
-        {
-            StartCoroutine(SpawEnemy());
-        }     
+        _wayPoint = GameObject.FindGameObjectWithTag("WayPoint").GetComponent<WayPoint>();
+        _coroutine = StartCoroutine(SpawEnemy());
+    }
+
+    public void StopSpawEnemy()
+    {
+        StopCoroutine(_coroutine);
     }
 
     IEnumerator SpawEnemy()
     {
-        isSpawned = false;
-        var enemy = GetEnemyFromPool();
-        enemy.SetActive(true);
-        enemy.transform.position = transform.position;
-        yield return new WaitForSeconds(1);
-        isSpawned = true;
+        while(true)
+        {
+            Enemy enemy = GetEnemyFromPool();
+            EnemyData data = list_enemyData[0];
+            enemy.gameObject.SetActive(true);
+            enemy.transform.position = transform.position;
+            enemy.hp = data.hp;
+            enemy.def = data.def;
+            enemy.speed = data.move_speed;
+            enemy.current_hp = enemy.hp;
+            enemy._wayPoint = _wayPoint;
+            yield return new WaitForSeconds(1);
+        }       
     }
 
-   GameObject GetEnemyFromPool()
-    {
-        foreach(GameObject g in enemyPool)
+   Enemy GetEnemyFromPool()
+    {      
+        foreach(Enemy g in enemyPool)
         {
-            if (g.activeSelf == false)
+            if (g.gameObject.activeSelf == false)
                 return g;
         }
 
-        var new_enemy = Instantiate(enemyPrefab);
+        var new_enemy = Instantiate(list_enemyPrefab[0]);
         enemyPool.Add(new_enemy);
         return new_enemy;
     }

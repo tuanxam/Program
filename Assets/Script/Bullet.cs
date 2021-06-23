@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [HideInInspector] public float attack;
+    public DebuffBurn dbPrefab;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void CreateDebuff(GameObject target)
+    {
+        DebuffBurn db = Instantiate(dbPrefab, target.transform.position, Quaternion.identity);
+        db.damage = attack;
+        db.ApplyDebuffToTarget(target);        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

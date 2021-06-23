@@ -24,6 +24,5 @@ public class Place : MonoBehaviour
     private void OnMouseDown()
     {
         _buildcanvas.gameObject.SetActive(!_buildcanvas.gameObject.activeSelf);
-        Debug.Log("onlick");
     }
 }
