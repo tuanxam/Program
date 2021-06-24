@@ -25,7 +25,7 @@ public class ShopTurret : MonoBehaviour
 
     private void SetButton()
     {
-        for (int i = 0; i < Panel.GetChildCount(); i++)
+        for (int i = 0; i < Panel.childCount; i++)
         {
             button = Panel.GetChild(i).GetComponent<Button>();
             button.AddEventListener(i, onShopTurretBntClicked);
