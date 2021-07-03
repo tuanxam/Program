@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class TurretData : ScriptableObject
     public Sprite sprite2;
     public Sprite sprite3;
     public float range;
-    public float cost;
-    public float cost_upgrade;
-    public float level;
+    public int cost;
+    public int cost_upgrade;
+    public int level;
 }

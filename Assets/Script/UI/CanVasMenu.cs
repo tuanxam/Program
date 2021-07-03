@@ -15,15 +15,9 @@ public class CanVasMenu : MonoBehaviour
         bt_exit.onClick.AddListener(OnclickExitGame);
     }
 
-    
-    void Update()
-    {
-        
-    }
-
     private void OnclickStartGame()
     {
-        SceneManager.LoadScene("Map1");
+        Loader._instance.LoadNextLevel();
     }
 
     private void OnclickExitGame()

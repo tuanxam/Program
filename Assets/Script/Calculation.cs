@@ -10,6 +10,21 @@ public static class Calculation
         return attack -= (attack * def / 100);
     }
 
+    public static int TotalCostBought(float costTurret, float costUpgrade, int level)
+    {
+        return (int)costTurret + (int)costUpgrade * level;
+    }
+
+    public static int ReturnCoinSold(int coin)
+    {
+        return  coin * 30 / 100;
+    }
+
+    public static float AttackUpgrade(float attack)
+    {
+        return attack += attack * 20 / 100;
+    }
+
     public static string GetSuffix(int num)
     {
         string suffix = "";

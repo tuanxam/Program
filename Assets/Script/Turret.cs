@@ -1,22 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Turret : MonoBehaviour
 {
+    public event Action Event_OnClickTurret;
     public GameObject gun;   
     public GameObject bulletPrefab;
     public new string name;
-    
+    public float offset;
     public float attack;
-    public float cost;
-    public float cost_upgrade;
+    public int cost;
+    public int cost_upgrade;
     public float range;
     public float firRate;
     public float fore;
     public int id;
-    
-    [SerializeField] private Canvas _canvasUpgrade;
+    public int total_cost_bouhgt;
     [SerializeField] private LayerMask layerMask;
     [HideInInspector] public int level_upgrade;
     [HideInInspector] public Sprite sprite1, sprite2, sprite3;
@@ -33,7 +34,6 @@ public class Turret : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _spr = GetComponent<SpriteRenderer>();
-        level_upgrade = 1;
     }
 
     // Update is called once per frame
@@ -56,7 +56,10 @@ public class Turret : MonoBehaviour
                 _spr.sprite = sprite3;
                 break;
         }
+        total_cost_bouhgt = Calculation.TotalCostBought(cost, cost_upgrade, level_upgrade);     
     }
+
+
 
     private void CheckTarget()
     {
@@ -68,7 +71,8 @@ public class Turret : MonoBehaviour
 
             if ( _distance <= range)
             {
-                _dir = _target.transform.position - transform.position;
+                _dir = _target.transform.position - gun.transform.position;
+                //LockAtTarget();
                 if (_nextimtofire < Time.time)
                 {
                     Shoot();
@@ -87,10 +91,15 @@ public class Turret : MonoBehaviour
     private void Shoot()     
     {
         var bul = GetBulletFromPool();
+        float z = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg;
         bul.GetComponent<Bullet>().attack = attack;
         bul.SetActive(true);
-        bul.transform.position = transform.position;
-        bul.GetComponent<Rigidbody2D>().AddForce(_dir * fore);
+
+        bul.transform.position = gun.transform.position;       
+        gun.transform.rotation = Quaternion.Euler(0, 0, z + offset);
+        bul.transform.rotation = gun.transform.rotation;  
+        
+        bul.GetComponent<Rigidbody2D>().velocity = _dir * 3;   /*AddForce(_dir * fore);*/
     }
 
     GameObject GetBulletFromPool()
@@ -112,7 +121,7 @@ public class Turret : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _canvasUpgrade.gameObject.SetActive(!_canvasUpgrade.gameObject.activeSelf);
+        Event_OnClickTurret?.Invoke();
     }
-
 }
+

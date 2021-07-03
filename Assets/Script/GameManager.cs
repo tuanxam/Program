@@ -8,13 +8,14 @@ public class GameManager : MonoBehaviour
     public event Action<bool> Event_IsDefeat;
     public event Action<bool> Event_IsWin;
     public Coroutine coroutine;
+    public Place place;
     public float timeDef;
     public int life;
     public Spawner spawnerEnemy;
     private bool _isDeFeat, _isWin;
     [HideInInspector] public int current_life;
     [HideInInspector] public float current_time;
-
+    [HideInInspector] public int currenLevel;
     private void Awake()
     {
         if(_instance == null)
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
             StopGame();
             _isDeFeat = true;
             Event_IsDefeat?.Invoke(_isDeFeat);
+            Debug.Log(_isDeFeat);
         }
     }
 
@@ -67,17 +69,32 @@ public class GameManager : MonoBehaviour
             _isWin = true;
             Event_IsWin?.Invoke(_isWin);
             StopGame();
+            Debug.Log(_isWin);
         }
     }
 
     public void StartGame()
     {
-        current_time = timeDef;
-        _isWin = false;
-        Event_IsWin?.Invoke(_isWin);
+        Debug.Log("start game");
+        ResetStatus();
+        
         coroutine = StartCoroutine(CountTime());
         spawnerEnemy.StartSpawEnemy();
+
     }
+
+    public void ResetStatus()
+    {
+        _isWin = false;
+        _isDeFeat = false;
+        Event_IsWin?.Invoke(_isWin);
+        Event_IsDefeat?.Invoke(_isDeFeat);
+
+        HelperCalculate._instance.ResetCoin(100);
+        current_time = timeDef;
+        current_life = life;
+    }
+
     public void StopGame()
     {
         StopCoroutine(coroutine);
@@ -95,13 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void ReplayGame()
     {
-        _isDeFeat = false;
-        Event_IsDefeat?.Invoke(_isDeFeat);
-
-        current_time = timeDef;
-        current_life = life;
-        coroutine = StartCoroutine(CountTime());
-        spawnerEnemy.StartSpawEnemy();
-        
+        ResetStatus();
+        Loader._instance.ReloadLevel();       
     }
 }

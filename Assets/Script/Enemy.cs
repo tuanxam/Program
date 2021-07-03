@@ -10,18 +10,19 @@ public class Enemy : MonoBehaviour
     public float current_hp;
     public float def;
     public PopUp popupPrefab;
-    public WayPoint _wayPoint;
+    [HideInInspector] public WayPoint _wayPoint;
+    public bool isdebuff;
     private int _waypointIndex;
 
     void Start()
     {     
         current_hp = hp;
     }
-
-  
+ 
     void Update()
     {
         Move();
+        EnemyDeath();
     }
 
     private void Move()
@@ -36,7 +37,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                gameObject.SetActive(false);
+                Destroy(gameObject);
                 GameManager._instance.current_life--;
                 _waypointIndex = 0;
             }
@@ -47,7 +48,7 @@ public class Enemy : MonoBehaviour
     {
         if(status)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             _waypointIndex = 0;
         }
     }
@@ -56,7 +57,7 @@ public class Enemy : MonoBehaviour
     {
         if (status)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             _waypointIndex = 0;
         }
     }
@@ -73,27 +74,29 @@ public class Enemy : MonoBehaviour
         GameManager._instance.Event_IsDefeat -= Handle_Event_isDefeat;
     }
 
+    private void EnemyDeath()
+    {
+        if (current_hp < 1)
+        {
+             Destroy(gameObject);
+            //gameObject.SetActive(false);
+            HelperCalculate._instance.AddCoin(enemyCoin);
+            _waypointIndex = 0;
+        }
+    }
+
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet"))
-        {
-           
-
+        {         
             current_hp -= Calculation.DamgeTaken(collision.gameObject.GetComponent<Bullet>().attack, def);
-
-            collision.gameObject.GetComponent<Bullet>().CreateDebuff(gameObject);
-            
+           
             PopUp p =  Instantiate(popupPrefab, transform.position, Quaternion.identity);
             p.transform.position = transform.position;
             p.SetText((int)Calculation.DamgeTaken(collision.gameObject.GetComponent<Bullet>().attack, def));
-            
-            if(current_hp < 1)
-            {
-                gameObject.SetActive(false);
-                HelperCalculate._instance.AddCoin(enemyCoin);
-                _waypointIndex = 0;
-            }         
-            
+         
         }
     }
 

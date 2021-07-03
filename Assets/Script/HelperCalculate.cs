@@ -5,8 +5,8 @@ using System;
 public class HelperCalculate : MonoBehaviour
 {
     public static HelperCalculate _instance;
-    public int coins;
-
+    private int _coin;
+    private int _gem;
     private void Awake()
     {
         if (_instance == null)
@@ -20,13 +20,27 @@ public class HelperCalculate : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    public void AddCoin(int _coin)
+    public void AddCoin(int coin)
     {
-        coins += _coin;
+        _coin += coin;
     }
-    public void GetCoin(int _coin)
+    public int GetCoin()
     {
-        coins -= _coin;
+        return _coin;
     }
-  
+
+    public void ResetCoin(int coinformap)
+    {
+        _coin = coinformap;
+    }
+
+    public void AddGem(int gem)
+    {
+        _gem += gem;
+    }
+
+    public void GetGem(int gem)
+    {
+        _gem -= gem;
+    }
 }

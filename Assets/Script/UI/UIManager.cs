@@ -7,6 +7,7 @@ using System;
 using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
+    public static UIManager _instance;
     public TextMeshProUGUI tmp_coin;
     public TextMeshProUGUI tmp_time;
     public GameObject panel_defeat;
@@ -18,6 +19,14 @@ public class UIManager : MonoBehaviour
     public Button bt_loadMap;
     private void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         DontDestroyOnLoad(gameObject);      
     }
 
@@ -28,52 +37,42 @@ public class UIManager : MonoBehaviour
         bt_resumeGame.onClick.AddListener(OnclickResumeGame);
         bt_replayGame.onClick.AddListener(OnclickReplayGame);
         bt_loadMap.onClick.AddListener(OnclickLoadMap);
-        GameManager._instance.Event_IsDefeat += Handle_Event_isDefeat;
-        GameManager._instance.Event_IsWin += Handle_Event_isWin;
     }
 
     private void Update()
     {
-        SetText(HelperCalculate._instance.coins);
+        tmp_coin.SetText(Calculation.GetSuffix(HelperCalculate._instance.GetCoin()));
         tmp_time.SetText(GameManager._instance.current_time.ToString("0,0.0"));
     } 
 
     private void Handle_Event_isDefeat(bool isdefeat)
     {
-        if(isdefeat)
-        {
-            panel_defeat.SetActive(true);
-        }
+         panel_defeat.SetActive(isdefeat);
     }
     private void Handle_Event_isWin(bool iswin)
     {
-        if (iswin)
-        {
-            panel_win.SetActive(true);
-        }
-    }
-
-    public void SetText(int i)
-    {
-        tmp_coin.SetText(i.ToString());
+        panel_win.SetActive(iswin);
     }
 
     private void OnclickLoadMap()
-    {
-        GameManager._instance.Event_IsWin -= Handle_Event_isWin;
-        bt_startGame.gameObject.SetActive(true);
-        SceneManager.LoadScene("Map1.1");             
+    {        
+        Loader._instance.LoadNextLevel();
+        GameManager._instance.ResetStatus();
+        bt_startGame.gameObject.SetActive(true);       
     }
 
     private void OnclickReplayGame()
-    {
-        GameManager._instance.Event_IsDefeat -= Handle_Event_isDefeat;
+    {       
         GameManager._instance.ReplayGame();
+       // GameManager._instance.Event_IsDefeat -= Handle_Event_isDefeat;
+        bt_startGame.gameObject.SetActive(true);
     }
 
     private void OnclickStartGame()
     {
-        GameManager._instance.StartGame();
+        GameManager._instance.Event_IsDefeat += Handle_Event_isDefeat;
+        GameManager._instance.Event_IsWin += Handle_Event_isWin;
+        GameManager._instance.StartGame();             
     }
 
     private void OnclickPauseGame()

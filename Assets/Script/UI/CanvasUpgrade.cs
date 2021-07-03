@@ -2,45 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using TMPro;
 public class CanvasUpgrade : MonoBehaviour
 {
+    public event Action <int> Event_OnClickCanvasUpgrade;
+    [HideInInspector] public Turret turret;
     public Transform panel;
-    public Turret turret;
-    private Button button;
-   
-    void Start()
-    {
-        SetButtonUpdate();
-    }
+    private Button _button;
 
+    private void Start()
+    {
+        SetUpButton();
+    }
 
     private void OnClickedUpdrade (int index)
     {
         switch(index)
         {
-            case 0:               
-                turret.attack += 10;
-                Debug.Log("up atk: " + turret.attack);
-                turret.level_upgrade++;
-                turret.SetSprite();
-                HelperCalculate._instance.GetCoin((int)turret.cost_upgrade);
-                
+            case 0:
+                Event_OnClickCanvasUpgrade?.Invoke(0);
+                Debug.Log("click upgrade");
                 break;
             case 1:
-                Debug.Log("up range: " + turret.range);
-                turret.range += 1;
-                HelperCalculate._instance.GetCoin((int)turret.cost_upgrade);
+                Event_OnClickCanvasUpgrade?.Invoke(1);
+                Debug.Log("click sell");
                 break;
         }
         gameObject.SetActive(false);
     }
-
-    private void SetButtonUpdate()
+    private void SetUpButton()
     {
-        for(int i = 0; i < panel.childCount; i++)
+        for (int i = 0; i < panel.childCount; i++)
         {
-            button = panel.GetChild(i).GetComponent<Button>();
-            button.AddEventListener(i, OnClickedUpdrade);
+            _button = panel.GetChild(i).GetComponent<Button>();
+            _button.AddEventListener(i, OnClickedUpdrade);          
         }
     }
+
+    public void SetTextCostUpgrade()
+    {
+        _button = panel.GetChild(0).GetComponent<Button>();
+        _button.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(turret.cost_upgrade.ToString());              
+    }
+
 }
