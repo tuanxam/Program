@@ -29,6 +29,7 @@ public class Loader : MonoBehaviour
         wait = new WaitForSeconds(transitionTime);
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
         currentScene = SceneManager.GetActiveScene().buildIndex + 1;
+        if(GameManager._instance !=null)
         GameManager._instance.currenLevel++;
     }
 
